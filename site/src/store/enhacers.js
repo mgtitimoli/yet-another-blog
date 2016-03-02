@@ -1,5 +1,4 @@
 import createLoggerMiddleware from "redux-logger";
-import devTools from "remote-redux-devtools";
 import thunkMiddleware from "redux-thunk";
 import {
     applyMiddleware,
@@ -9,7 +8,6 @@ import {
 import * as environment from "../lib/environment";
 
 // import { Iterable } from "immutable";
-
 
 let middlewares = [
     thunkMiddleware
@@ -29,11 +27,9 @@ if (environment.isDevelopment()) {
         }
     }));
 
-    enhacers.push(devTools({
-        // hostname: "localhost",
-        // port    : 8000,
-        name    : "Papa"
-    }));
+    if (window.devToolsExtension) {
+        enhacers.push(window.devToolsExtension);
+    }
 }
 
 export default compose(
