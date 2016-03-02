@@ -3,10 +3,10 @@
 var path = require("path");
 
 var rootDir = path.join(__dirname, "../../..");
-var siteDir = rootDir + "/site";
-var depsDir = rootDir + "/node_modules";
-var srcDir  = siteDir + "/src";
-var distDir = siteDir + "/dist";
+var siteDir = path.join(rootDir, "site");
+var depsDir = path.join(rootDir, "node_modules");
+var srcDir  = path.join(siteDir, "src");
+var distDir = path.join(siteDir, "dist");
 
 module.exports = {
     dirs: {
@@ -14,13 +14,13 @@ module.exports = {
         src : srcDir,
         dist: {
             root  : distDir,
-            assets: distDir + "/assets"
+            assets: path.join(distDir, "assets")
         }
     },
 
     files: {
-        main       : srcDir + "/main.js",
-        packageJson: rootDir + "/package.json"
+        main       : path.join(srcDir, "main.js"),
+        packageJson: path.join(rootDir, "package.json")
     },
 
     globs: {
