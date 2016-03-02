@@ -1,4 +1,4 @@
-import articlesRoute from "pages/articles";
+import articlesRoute from "pages/articles/route";
 
 export default {
     path: "/",
