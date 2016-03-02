@@ -3,7 +3,7 @@ import "babel-polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Application from "./controls/application";
+import Application from "./pages/application";
 
 ReactDOM.render(
     <Application/>,
