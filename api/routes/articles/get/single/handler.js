@@ -1,9 +1,8 @@
-export default function (req, res) {
+export default function (db, req, res) {
 
-    res.send({
-        id       : req.params.articleId,
-        header   : "",
-        text     : "",
-        timestamp: (new Date()).toISOString()
+    const article = db(articles).find({
+        id: req.params.id
     });
+
+    res.send(article);
 }

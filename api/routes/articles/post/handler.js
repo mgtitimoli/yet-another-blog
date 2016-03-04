@@ -1,2 +1,2 @@
-export default function (req, res) {
+export default function (db, req, res) {
 }

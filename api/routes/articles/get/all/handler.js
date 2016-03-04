@@ -1,21 +1,8 @@
 export default function (db, req, res) {
 
-    const articles = db("articles");
+    const articles = db("articles").value();
 
-    res.json(articles);
-
-    // res.json([
-    //     {
-    //         id       : 1,
-    //         header   : "",
-    //         text     : "",
-    //         timestamp: (new Date()).toISOString()
-    //     },
-    //     {
-    //         id       : 2,
-    //         header   : "",
-    //         text     : "",
-    //         timestamp: (new Date()).toISOString()
-    //     }
-    // ]);
+    res.json({
+        result: articles
+    });
 }
