@@ -1,6 +1,6 @@
 import ArticlesListPageContainer from "./index";
 
 export default {
-    path     : "edit",
+    path     : "list",
     component: ArticlesListPageContainer
 };
