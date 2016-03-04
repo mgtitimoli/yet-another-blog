@@ -1,6 +1,6 @@
 import createBrowserHistory from "history/lib/createBrowserHistory";
 import { syncHistoryWithStore } from "react-router-redux";
-import { useRouterHistory } from " react-router";
+import { useRouterHistory } from "react-router";
 
 import store from "store";
 
