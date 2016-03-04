@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, {
     Component,
     PropTypes
@@ -23,7 +24,7 @@ export default class ArticleEditor extends Component {
 
     static displayName = ArticleEditor.name;
 
-    static PropTypes = Object.assign(
+    static propTypes = Object.assign(
         {},
         formPropTypes,
         ourPropTypes
@@ -105,7 +106,7 @@ export default class ArticleEditor extends Component {
         );
 
         const props = Object.assign(propsWithoutOurs, {
-            onSubmit: this._handleSave,
+            onSubmit: this._handleSave
         });
 
         return (
