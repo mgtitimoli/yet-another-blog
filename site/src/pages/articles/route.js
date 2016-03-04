@@ -3,14 +3,15 @@ import articlesEditRoute from "./pages/edit";
 import articlesListRoute from "./pages/list";
 
 export default {
-    path: "articles",
-    onEnter(nextState, replace) {
-
-        replace("articles/list");
-    },
+    path       : "articles",
     childRoutes: [
         articlesCreateRoute,
         articlesEditRoute,
         articlesListRoute
-    ]
+    ],
+
+    onEnter(nextState, replace) {
+
+        replace("/articles/list");
+    }
 };
