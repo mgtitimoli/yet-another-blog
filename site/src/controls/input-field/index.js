@@ -37,7 +37,11 @@ export default class InputField extends Component {
 
     static displayName = InputField.name;
 
-    static propTypes = ;
+    static propTypes = Object.assign(
+        {},
+        inputPropTypes,
+        ourPropTypes
+    );
 
     static defaultProps = {
         defaultValue: null,
