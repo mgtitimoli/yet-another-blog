@@ -1,23 +1,24 @@
-import React, { Component } from "react";
+import React, {
+    Component,
+    PropTypes
+} from "react";
 import { Provider } from "react-redux";
-import { Router } from "react-router-redux";
 
 import store from "store";
-
-import applicationRoute from "./route";
 
 export default class Application extends Component {
 
     static displayName = Application.name;
 
+    static propTypes = {
+        children: PropTypes.node.isRequired
+    };
+
     render() {
 
         return (
             <Provider store={ store }>
-                <Router
-                    history={ history }
-                    routes={ applicationRoute }
-                />
+                { this.props.children }
             </Provider>
         );
     }
