@@ -8,25 +8,25 @@ export class ArticleService {
         this._request = request;
     }
 
-    create(article) {
+    // create(article) {
 
-        this._request.postJson();
-    }
+    //     this._request.postJson();
+    // }
 
-    fetchAll() {
+    // fetchAll() {
 
-        this._request.getJson();
-    }
+    //     this._request.getJson();
+    // }
 
-    fetch(id) {
+    // fetch(id) {
 
-        this._request.getJson();
-    }
+    //     this._request.getJson();
+    // }
 
-    update(article) {
+    // update(article) {
 
-        this._request.getJson();
-    }
+    //     this._request.getJson();
+    // }
 }
 
 export default singletonProvider(() => {
