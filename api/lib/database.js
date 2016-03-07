@@ -1,4 +1,13 @@
-import low from "lowdb";
+import lowDb from "lowdb";
+import path from "path";
 import storage from "lowdb/file-async";
+import underscoreDb from "underscore-db";
 
-export default low("../data/database.json", { storage });
+const db = lowDb(
+    path.join(__dirname, "../data/database.json"),
+    { storage }
+);
+
+db._.mixin(underscoreDb);
+
+export default db;
