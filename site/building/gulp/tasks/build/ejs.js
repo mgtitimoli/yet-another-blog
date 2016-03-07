@@ -15,7 +15,14 @@ gulp.task("build:ejs", function () {
         ]
     };
 
+    var options = {
+        ext: ".html"
+    };
+
     gulp.src(localLocations.globs.ejs)
-        .pipe(plugins.ejs(tamplatesParams))
+        .pipe(plugins.ejs(
+            tamplatesParams,
+            options
+        ))
         .pipe(gulp.dest(localLocations.dirs.dist.root));
 });
