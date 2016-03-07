@@ -4,7 +4,7 @@ const CONTENT_TYPE_JSON = "application/json";
 
 function ensureIsSucceed(response) {
 
-    if (response.status >= 200 && response.status < 300) {
+    if (response.status >= 200 && response.status < 400) {
         return response;
     }
 
@@ -26,8 +26,16 @@ async function safeFetch(url, options) {
 async function safeFetchJson(url, options) {
 
     const response = await safeFetch(url, options);
+    const content  = await response.json();
 
-    return response.json();
+    return {
+        content,
+
+        status: {
+            code: response.status,
+            text: response.statusText
+        }
+    };
 }
 
 function getJson(url, data = undefined, headers = {}) {
@@ -45,7 +53,7 @@ function getJson(url, data = undefined, headers = {}) {
     });
 }
 
-function postJson(url, data, headers = {}) {
+function sendJson(url, method, data, headers = {}) {
 
     headers = Object.assign({}, headers, {
         "Accept"      : CONTENT_TYPE_JSON,
@@ -54,14 +62,14 @@ function postJson(url, data, headers = {}) {
 
     return safeFetchJson(url, {
         headers,
+        method,
 
-        method: "POST",
-        body  : JSON.stringify(data)
+        body: JSON.stringify(data)
     });
 }
 
 export {
     safeFetch,
     getJson,
-    postJson
+    sendJson
 };
