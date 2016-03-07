@@ -13,11 +13,10 @@ export default class ArticlesListPage extends Component {
     static displayName = ArticlesListPage.name;
 
     static propTypes = {
-        articles: PropTypes
-            .arrayOf(articlePropType)
-            .isRequired,
-
-        onArticleEdit: PropTypes.func.isRequired
+        articles       : PropTypes.arrayOf(articlePropType).isRequired,
+        fetching       : PropTypes.bool.isRequired,
+        onCreateArticle: PropTypes.func.isRequired,
+        onEditArticle  : PropTypes.func.isRequired
     };
 
     _renderArticleItems() {
@@ -26,7 +25,7 @@ export default class ArticlesListPage extends Component {
             <ArticleItem
                 article={ article }
                 key={ index }
-                onEdit={ this.props.onArticleEdit }
+                onEdit={ this.props.onEditArticle }
             />
         ));
     }

@@ -1,6 +1,6 @@
-import articlesCreateRoute from "./pages/create";
-import articlesEditRoute from "./pages/edit";
-import articlesListRoute from "./pages/list";
+import articlesCreateRoute from "./pages/create/route";
+import articlesEditRoute from "./pages/edit/route";
+import articlesListRoute from "./pages/list/route";
 
 export default {
     path       : "articles",
@@ -8,10 +8,10 @@ export default {
         articlesCreateRoute,
         articlesEditRoute,
         articlesListRoute
-    ],
+    ]/*,
 
     onEnter(nextState, replace) {
 
         replace("/articles/list");
-    }
+    }*/
 };

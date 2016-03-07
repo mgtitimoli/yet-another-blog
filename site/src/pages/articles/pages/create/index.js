@@ -1,18 +1,50 @@
 import { connect } from "react-redux";
+import { push } from "react-router-redux";
+
+import articlesCreateAction from "store/actions/articles/create";
 
 import ArticlesCreatePage from "./component";
 
-// function mapStateToProps(state, props) {
+function mapStateToProps(state) {
 
-//     return {};
-// }
+    const {
+        processing
+    } = state
+        .get("articles")
+        .toJS();
 
-// function mapDispatchToProps(dispatch, props) {
+    return {
+        saving: processing === articlesCreateAction.TYPE
+    };
+}
 
-//     return {};
-// }
+function mapDispatchToProps(dispatch) {
+
+    return {
+        onCancelCreation() {
+
+            dispatch(
+                push("/articles/list")
+            );
+        },
+
+        onConfirmCreation(article) {
+
+            dispatch(
+                articlesCreateAction(article)
+            );
+        },
+
+        onSaved() {
+
+            dispatch(
+                push("/articles/list")
+            );
+        }
+    };
+}
 
 export default connect(
-    // mapStateToProps,
-    // mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ArticlesCreatePage);

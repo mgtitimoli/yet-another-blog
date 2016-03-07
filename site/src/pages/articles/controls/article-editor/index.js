@@ -15,9 +15,9 @@ const formPropTypes = {
 };
 
 const ourPropTypes = {
-    article : articlePropType,
-    onCancel: PropTypes.func.isRequired,
-    onSave  : PropTypes.func.isRequired
+    article  : articlePropType,
+    onCancel : PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired
 };
 
 export default class ArticleEditor extends Component {
@@ -49,7 +49,7 @@ export default class ArticleEditor extends Component {
         this.articleFields[name] = field;
     }
 
-    _renderActionButton(actionName) {
+    _renderActionButton(label, actionName) {
 
         const handleClick = this
             ._handleActionButtonClick
@@ -60,7 +60,7 @@ export default class ArticleEditor extends Component {
 
         return (
             <button onClick={ handleClick }>
-                { actionName }
+                { label }
             </button>
         );
     }
@@ -69,8 +69,8 @@ export default class ArticleEditor extends Component {
 
         return (
             <div>
-                { this._renderActionButton("Save") }
-                { this._renderActionButton("Cancel") }
+                { this._renderActionButton("Save", "Confirm") }
+                { this._renderActionButton("Cancel", "Cancel") }
             </div>
         );
     }

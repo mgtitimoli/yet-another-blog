@@ -11,18 +11,45 @@ export default class ArticlesCreatePage extends Component {
     static displayName = ArticlesCreatePage.name;
 
     static propTypes = {
-        onCancel: PropTypes.func.isRequired,
-        onSave  : PropTypes.func.isRequired
+        onCancelCreation : PropTypes.func.isRequired,
+        onConfirmCreation: PropTypes.func.isRequired,
+        onSaved          : PropTypes.func.isRequired,
+        saving           : PropTypes.bool.isRequired
+    };
+
+    state = {
+        newArticle: {
+            title  : "",
+            content: ""
+        },
+
+        saved : false,
+        saving: false
     };
 
     componentWillMount() {
 
-        this.state = {
-            newArticle: {
-                title  : "",
-                content: ""
-            }
+        this._receiveProps(this.props);
+    }
+
+    componentWillReceiveProps(props) {
+
+        this._receiveProps(props);
+    }
+
+    _receiveProps(props) {
+
+        const { saving } = props;
+
+        const state = {
+            saving
         };
+
+        if (!saving && this.state.saving) {
+            state.saved = true;
+        }
+
+        this.setState(state);
     }
 
     _renderArticleEditor() {
@@ -30,8 +57,8 @@ export default class ArticlesCreatePage extends Component {
         return (
             <ArticleEditor
                 article={ this.state.newArticle }
-                onCancel={ this.props.onCancel }
-                onSave={ this.props.onSave }
+                onCancel={ this.props.onCancelCreation }
+                onConfirm={ this.props.onConfirmCreation }
             />
         );
     }
@@ -44,6 +71,10 @@ export default class ArticlesCreatePage extends Component {
     }
 
     render() {
+
+        if (this.state.saved) {
+            this.props.onSaved();
+        }
 
         return (
             <div>
