@@ -7,10 +7,10 @@ export default {
     path       : "/",
     childRoutes: [
         articlesRoute
-    ],
+    ]/*,
 
     onEnter(nextState, replace) {
 
         replace("/articles");
-    }
+    }*/
 };
