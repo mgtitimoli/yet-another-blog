@@ -2,6 +2,6 @@ import devToolsEnhacer from "./dev-tools";
 
 const enhacers = [
     devToolsEnhacer
-].filter();
+].filter(Boolean);
 
 export default enhacers;
