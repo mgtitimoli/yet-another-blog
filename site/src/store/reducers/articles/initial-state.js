@@ -2,5 +2,6 @@ import Immutable from "immutable";
 
 export default Immutable.fromJS({
     collection      : [],
-    inEditionArticle: null
+    inEditionArticle: null,
+    processing      : null
 });
