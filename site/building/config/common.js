@@ -5,5 +5,7 @@ var localLocations = require("../locations/local");
 var version = require(localLocations.files.packageJson).version;
 
 module.exports = {
-    version: version
+    basePath: "",
+    apiPath : "/api",
+    version : version
 };

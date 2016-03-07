@@ -12,7 +12,7 @@ gulp.task("server", function () {
 
     var proxies = [
         {
-            source : "/api",
+            source : remoteLocations.paths.api,
             target : "http://localhost:3000"
         }
     ];
