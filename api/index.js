@@ -1,6 +1,8 @@
 import server from "./server";
 
-server.listen(3000, () => {
+const port = process.env.PORT || 3000;
 
-    console.log("Blog started on port" + port); // eslint-disable-line
+server.listen(port, () => {
+
+    console.log("Blog started on port: " + port); // eslint-disable-line
 });
