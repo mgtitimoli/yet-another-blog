@@ -5,9 +5,9 @@ export default function createAsyncActionCreator(
     executeAsync
 ) {
 
-    const TYPE_STARTED = TYPE + "_STARTED";
-    const TYPE_FAILED  = TYPE + "_FAILED";
-    const TYPE_SUCCEED = TYPE + "_SUCCEED";
+    const TYPE_STARTED = TYPE + ".STARTED";
+    const TYPE_FAILED  = TYPE + ".FAILED";
+    const TYPE_SUCCEED = TYPE + ".SUCCEED";
 
     let actionCreators = {
         [ TYPE_STARTED ]: createAction(TYPE_STARTED),

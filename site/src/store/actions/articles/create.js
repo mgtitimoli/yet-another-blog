@@ -1,4 +1,4 @@
-import getArticlesService from "services/articles";
+import articlesService from "services/articles";
 import createAsyncActionCreator from "../lib/create-async-action-creator";
 
 export function articlesCreate(articlesService, article) {
@@ -8,5 +8,5 @@ export function articlesCreate(articlesService, article) {
 
 export default createAsyncActionCreator(
     "ARTICLES:CREATE",
-    articlesCreate.bind(undefined, getArticlesService())
+    articlesCreate.bind(undefined, articlesService)
 );
