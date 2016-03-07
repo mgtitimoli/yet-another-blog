@@ -1,5 +1,5 @@
-import articlesRoute from "./articles";
+import articlesRouteHandlers from "./articles/handlers";
 
 export default [
-    articlesRoute
+    articlesRouteHandlers
 ];
