@@ -12,7 +12,8 @@ var config = {
         ],
         vendor: [
             "react",
-            "react-router-redux"
+            "redux",
+            "react-redux"
         ]
     },
     node: {
