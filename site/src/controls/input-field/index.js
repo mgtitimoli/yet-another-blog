@@ -78,12 +78,12 @@ export default class InputField extends Component {
 
     reset() {
 
-        this._setValue(this.props.defaultValue);
+        this.setValue(this.props.defaultValue);
     }
 
     setValue(value) {
 
-        const formattedValue = this._formatValue(value);
+        const formattedValue = this.props.formatValue(value);
 
         return this._asyncSetState({
             formattedValue,
@@ -104,7 +104,7 @@ export default class InputField extends Component {
         const inputValue = input.value;
 
         const value          = this.props.parseValue(inputValue);
-        const formattedValue = this._formatValue(value, inputValue);
+        const formattedValue = this.props.formatValue(value, inputValue);
 
         await this._asyncSetState({
             formattedValue,
