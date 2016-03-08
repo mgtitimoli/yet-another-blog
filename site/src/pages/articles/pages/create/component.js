@@ -11,10 +11,10 @@ export default class ArticlesCreatePage extends Component {
     static displayName = ArticlesCreatePage.name;
 
     static propTypes = {
-        onCancelCreation : PropTypes.func.isRequired,
-        onConfirmCreation: PropTypes.func.isRequired,
-        onSaved          : PropTypes.func.isRequired,
-        saving           : PropTypes.bool.isRequired
+        onCancelled: PropTypes.func.isRequired,
+        onConfirmed: PropTypes.func.isRequired,
+        onSaved    : PropTypes.func.isRequired,
+        saving     : PropTypes.bool.isRequired
     };
 
     state = {
@@ -57,8 +57,8 @@ export default class ArticlesCreatePage extends Component {
         return (
             <ArticleEditor
                 article={ this.state.newArticle }
-                onCancel={ this.props.onCancelCreation }
-                onConfirm={ this.props.onConfirmCreation }
+                onCancelled={ this.props.onCancelled }
+                onConfirmed={ this.props.onConfirmed }
             />
         );
     }

@@ -14,7 +14,7 @@ function mapStateToProps(state) {
     return {
         saving: actionInProgress === articlesCreateAction.TYPE,
 
-        onCancelCreation() {
+        onCancelled() {
 
             history.push("/articles/list");
         },
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return {
-        onConfirmCreation(article) {
+        onConfirmed(article) {
 
             dispatch(
                 articlesCreateAction(article)
