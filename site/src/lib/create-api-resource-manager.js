@@ -13,7 +13,7 @@ export class ApiResourceManager {
 
     async create(props) {
 
-        const { content } = await request.sendJson(
+        const { content } = await this._request.sendJson(
             this._resourcePath,
             "POST",
             props
@@ -24,7 +24,7 @@ export class ApiResourceManager {
 
     async fetch(id) {
 
-        const { content } = await request.getJson(
+        const { content } = await this._request.getJson(
             this._resourcePath + "/" + id
         );
 
@@ -33,7 +33,7 @@ export class ApiResourceManager {
 
     async fetchAll() {
 
-        const { content } = await request.getJson(
+        const { content } = await this._request.getJson(
             this._resourcePath
         );
 
@@ -45,7 +45,7 @@ export class ApiResourceManager {
 
     async update(props) {
 
-        const { content } = await request.sendJson(
+        const { content } = await this._request.sendJson(
             this._resourcePath,
             "PUT",
             props
