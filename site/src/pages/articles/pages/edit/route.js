@@ -1,7 +1,7 @@
 import ArticlesEditPageContainer from "./index";
 
-import articlesFetchAction from "store/actions/articles/fetch-all";
-import articlesFetchAllAction from "store/actions/articles/fetch-all";
+import articlesEditAction from "store/actions/articles/edit";
+import articlesFetchAction from "store/actions/articles/edit";
 
 import store from "store";
 
@@ -9,21 +9,22 @@ export default {
     path     : "edit/:articleId",
     component: ArticlesEditPageContainer,
 
-    onEnter({ params }) {
+    async onEnter({ params }) {
 
-        const { actionInProgress } = store
+        const { inEditionArticle } = store
             .getState("articles")
             .toJS();
 
-        if (
-            actionInProgress !== articlesFetchAction.TYPE
-            && actionInProgress !== articlesFetchAllAction.TYPE
-        ) {
+        if (inEditionArticle) {
             return;
         }
 
-        store.dispatch(
+        await store.dispatch(
             articlesFetchAction(params.articleId)
+        );
+
+        store.dispatch(
+            articlesEditAction(params.articleId)
         );
     }
 };

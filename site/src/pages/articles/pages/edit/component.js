@@ -12,12 +12,12 @@ export default class ArticlesEditPage extends Component {
     static displayName = ArticlesEditPage.name;
 
     static propTypes = {
-        article           : articlePropType.isRequired,
-        fetching          : PropTypes.bool.isRequired,
-        onCancelEdition   : PropTypes.func.isRequired,
-        onConfirmEditition: PropTypes.func.isRequired,
-        onSaved           : PropTypes.func.isRequired,
-        saving            : PropTypes.bool.isRequired
+        article    : articlePropType,
+        fetching   : PropTypes.bool.isRequired,
+        onCancelled: PropTypes.func.isRequired,
+        onConfirmed: PropTypes.func.isRequired,
+        onSaved    : PropTypes.func.isRequired,
+        saving     : PropTypes.bool.isRequired
     };
 
     state = {
@@ -55,10 +55,38 @@ export default class ArticlesEditPage extends Component {
         return (
             <ArticleEditor
                 article={ this.props.article }
-                onCancel={ this.props.onCancelEdition }
-                onConfirm={ this.props.onConfirmEditition }
+                onCancelled={ this.props.onCancelled }
+                onConfirmed={ this.props.onConfirmed }
             />
         );
+    }
+
+    _renderLoading() {
+
+        return (
+            <div>Loading</div>
+        );
+    }
+
+    _renderNotFound() {
+
+        return (
+            <div>
+                <div>Not Found</div>
+                <a onClick={ this.props.onCancelled }>Go Back</a>
+            </div>
+        );
+    }
+
+    _renderContentOrNotFound() {
+
+        if (this.props.article) {
+            return this._renderArticleEditor();
+        }
+
+        return this.props.fetching ?
+            this._renderLoading() :
+            this._renderNotFound();
     }
 
     _renderTitle() {
@@ -77,7 +105,7 @@ export default class ArticlesEditPage extends Component {
         return (
             <div>
                 { this._renderTitle() }
-                { this._renderArticleEditor() }
+                { this._renderContentOrNotFound() }
             </div>
         );
     }

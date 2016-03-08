@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 
 import articlesFetchAction from "store/actions/articles/fetch";
-import articlesFetchAllAction from "store/actions/articles/fetch-all";
 import articlesUpdateAction from "store/actions/articles/update";
 import history from "lib/history";
 
@@ -17,13 +16,9 @@ function mapStateToProps(state) {
         .toJS();
 
     return {
-        article: inEditionArticle,
-
-        fetching: 
-            actionInProgress === articlesFetchAction.TYPE ||
-            actionInProgress === articlesFetchAllAction.TYPE,
-
-        saving: actionInProgress === articlesUpdateAction.TYPE,
+        article : inEditionArticle,
+        fetching: actionInProgress === articlesFetchAction.TYPE,
+        saving  : actionInProgress === articlesUpdateAction.TYPE,
 
         onCancelled() {
 
