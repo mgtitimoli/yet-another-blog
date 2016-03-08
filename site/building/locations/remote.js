@@ -2,14 +2,14 @@
 
 var config = require("../config");
 
-var basePath    = config.basePath;
-var apiBasePath = config.apiBasePath;
-var assetsPath  = basePath + "/assets";
+var basePath   = config.basePath;
+var apiPath    = config.apiPath;
+var assetsPath = basePath + "/assets";
 
 module.exports = {
     paths: {
         base  : basePath,
-        api   : apiBasePath,
+        api   : apiPath,
         assets: assetsPath
     },
 
