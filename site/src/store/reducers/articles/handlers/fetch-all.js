@@ -9,7 +9,8 @@ export default {
         actionInProgress: null
     }),
 
-    [ articlesFetchAllAction.TYPE_SUCCEED ]: (state/*, action*/) => state.merge({
-        actionInProgress: null
+    [ articlesFetchAllAction.TYPE_SUCCEED ]: (state, action) => state.merge({
+        actionInProgress: null,
+        collection      : action.payload
     })
 };

@@ -9,7 +9,10 @@ export default {
         actionInProgress: null
     }),
 
-    [ articlesCreateAction.TYPE_SUCCEED ]: (state/*, action*/) => state.merge({
-        actionInProgress: null
-    })
+    [ articlesCreateAction.TYPE_SUCCEED ]: (state, action) => state
+        .set("actionInProgress", null)
+        .update(
+            "collection",
+            collection => collection.push(action.payload)
+        )
 };
