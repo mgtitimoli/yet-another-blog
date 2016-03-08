@@ -7,14 +7,12 @@ import ArticlesCreatePage from "./component";
 
 function mapStateToProps(state) {
 
-    const {
-        processing
-    } = state
+    const { actionInProgress } = state
         .get("articles")
         .toJS();
 
     return {
-        saving: processing === articlesCreateAction.TYPE
+        saving: actionInProgress === articlesCreateAction.TYPE
     };
 }
 

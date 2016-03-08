@@ -1,7 +1,7 @@
 import Immutable from "immutable";
 
 export default Immutable.fromJS({
+    actionInProgress: null,
     collection      : [],
-    inEditionArticle: null,
-    processing      : null
+    inEditionArticle: null
 });

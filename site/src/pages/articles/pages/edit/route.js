@@ -11,13 +11,13 @@ export default {
 
     onEnter({ params }) {
 
-        const { processing } = store
+        const { actionInProgress } = store
             .getState("articles")
             .toJS();
 
         if (
-            processing !== articlesFetchAction.TYPE
-            && processing !== articlesFetchAllAction.TYPE
+            actionInProgress !== articlesFetchAction.TYPE
+            && actionInProgress !== articlesFetchAllAction.TYPE
         ) {
             return;
         }

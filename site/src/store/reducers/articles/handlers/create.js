@@ -2,14 +2,14 @@ import articlesCreateAction from "store/actions/articles/create";
 
 export default {
     [ articlesCreateAction.TYPE_STARTED ]: (state/*, action*/) => state.merge({
-        processing: articlesCreateAction.TYPE
+        actionInProgress: articlesCreateAction.TYPE
     }),
 
     [ articlesCreateAction.TYPE_FAILED ] : (state/*, action*/) => state.merge({
-        processing: null
+        actionInProgress: null
     }),
 
     [ articlesCreateAction.TYPE_SUCCEED ]: (state/*, action*/) => state.merge({
-        processing: null
+        actionInProgress: null
     })
 };

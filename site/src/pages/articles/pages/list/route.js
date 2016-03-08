@@ -10,11 +10,11 @@ export default {
 
     onEnter() {
 
-        const { processing } = store
+        const { actionInProgress } = store
             .getState("articles")
             .toJS();
 
-        if (processing === articlesFetchAllAction.TYPE) {
+        if (actionInProgress === articlesFetchAllAction.TYPE) {
             return;
         }
 

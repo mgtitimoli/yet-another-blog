@@ -7,13 +7,16 @@ import ArticlesListPage from "./component";
 
 function mapStateToProps(state) {
 
-    const articlesState = state
+    const {
+        actionInProgress,
+        collection
+    } = state
         .get("articles")
         .toJS();
 
     return {
-        articles: articlesState.collection,
-        fetching: articlesState.processing === articlesFetchAllAction.TYPE
+        articles: collection,
+        fetching: actionInProgress === articlesFetchAllAction.TYPE
     };
 }
 

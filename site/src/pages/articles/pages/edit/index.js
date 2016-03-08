@@ -10,8 +10,8 @@ import ArticlesEditPage from "./component";
 function mapStateToProps(state) {
 
     const {
-        inEditionArticle,
-        processing
+        actionInProgress,
+        inEditionArticle
     } = state
         .get("articles")
         .toJS();
@@ -20,10 +20,10 @@ function mapStateToProps(state) {
         article: inEditionArticle,
 
         fetching: 
-            processing === articlesFetchAction.TYPE ||
-            processing === articlesFetchAllAction.TYPE,
+            actionInProgress === articlesFetchAction.TYPE ||
+            actionInProgress === articlesFetchAllAction.TYPE,
 
-        saving: processing === articlesUpdateAction.TYPE
+        saving: actionInProgress === articlesUpdateAction.TYPE
     };
 }
 
