@@ -15,9 +15,9 @@ const formPropTypes = {
 };
 
 const ourPropTypes = {
-    article  : articlePropType,
-    onCancel : PropTypes.func.isRequired,
-    onConfirm: PropTypes.func.isRequired
+    article    : articlePropType,
+    onCancelled: PropTypes.func.isRequired,
+    onConfirmed: PropTypes.func.isRequired
 };
 
 export default class ArticleEditor extends Component {
@@ -30,18 +30,38 @@ export default class ArticleEditor extends Component {
         ourPropTypes
     );
 
-    constructor(...args) {
+    componentWillMount() {
 
-        super(...args);
-
-        this.state = {
-            articleFields: {}
-        };
+        this._handleCancel  = this._handleCancel.bind(this);
+        this._handleConfirm = this._handleConfirm.bind(this);
     }
 
-    _handleActionButtonClick(actionName) {
+    articleFields = {};
 
-        this.props["on" + actionName](this);
+    _handleConfirm(event) {
+
+        event.preventDefault();
+
+        this.props.onConfirmed(this._getArticle());
+    }
+
+    _handleCancel(event) {
+
+        event.preventDefault();
+
+        this.props.onCancelled();
+    }
+
+    _getArticle() {
+
+        return Object
+            .entries(this.articleFields)
+            .reduce((article, [ key, articleField ]) => {
+
+                article[key] = articleField.getValue();
+
+                return article;
+            }, {});
     }
 
     _setArticleField(name, field) {
@@ -49,14 +69,7 @@ export default class ArticleEditor extends Component {
         this.articleFields[name] = field;
     }
 
-    _renderActionButton(label, actionName) {
-
-        const handleClick = this
-            ._handleActionButtonClick
-            .bind(
-                this,
-                actionName
-            );
+    _renderActionsButton(label, handleClick) {
 
         return (
             <button onClick={ handleClick }>
@@ -69,32 +82,36 @@ export default class ArticleEditor extends Component {
 
         return (
             <div>
-                { this._renderActionButton("Save", "Confirm") }
-                { this._renderActionButton("Cancel", "Cancel") }
+                { this._renderActionsButton("Save", this._handleConfirm) }
+                { this._renderActionsButton("Cancel", this._handleCancel) }
             </div>
         );
-    }
-
-    _renderArticleTimestamp() {
     }
 
     _renderArticleContent() {
 
         return (
-            <InputField
-                defaultValue={ this.props.article.content }
-                ref={ this.setArticleField.bind(this, "content") }
-            />
+            <label>
+                <div>Content</div>
+                <InputField
+                    defaultValue={ this.props.article.content }
+                    ref={ this._setArticleField.bind(this, "content") }
+                    type="textarea"
+                />
+            </label>
         );
     }
 
     _renderArticleTitle() {
 
         return (
-            <InputField
-                defaultValue={ this.props.article.title }
-                ref={ this.setArticleField.bind(this, "title") }
-            />
+            <label>
+                <div>Title</div>
+                <InputField
+                    defaultValue={ this.props.article.title }
+                    ref={ this._setArticleField.bind(this, "title") }
+                />
+            </label>
         );
     }
 
@@ -111,10 +128,9 @@ export default class ArticleEditor extends Component {
 
         return (
             <form { ...props }>
-                { this._renderArticleHeader() }
-                { this._renderArticleText() }
-                { this._renderArticleTimestamp() }
-                { this._renderButtons() }
+                { this._renderArticleTitle() }
+                { this._renderArticleContent() }
+                { this._renderActions() }
             </form>
         );
     }
