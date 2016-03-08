@@ -1,3 +1,4 @@
+import httpStatus from "http-status-codes";
 import formUrlEncoded from "form-urlencoded";
 
 const CONTENT_TYPE_JSON = "application/json";
@@ -26,7 +27,9 @@ async function safeFetch(url, options) {
 async function safeFetchJson(url, options) {
 
     const response = await safeFetch(url, options);
-    const content  = await response.json();
+    const content  = response.status === httpStatus.OK ?
+        await response.json() :
+        undefined;
 
     return {
         content,

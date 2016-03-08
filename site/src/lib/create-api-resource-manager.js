@@ -1,4 +1,4 @@
-import request from "lib/request";
+import * as request from "lib/request";
 
 export class ApiResourceManager {
 
@@ -38,7 +38,7 @@ export class ApiResourceManager {
         );
 
         // http status 204 (NO CONTENT) => !result 
-        return content.result ?
+        return content && content.result ?
             content.result :
             [];
     }
@@ -52,7 +52,7 @@ export class ApiResourceManager {
         );
 
         // http status 304 (NOT MODIFIED) => !result
-        return Boolean(content.result);
+        return Boolean(content && content.result);
     }
 }
 
