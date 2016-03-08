@@ -6,15 +6,15 @@ import React, {
 
 const inputPropTypes = {
     className: PropTypes.string,
-    style    : PropTypes.object,
-    type     : PropTypes.string
+    style    : PropTypes.object
 };
 
 const ourPropTypes = {
     defaultValue: PropTypes.any,
     onChange    : PropTypes.func,
     formatValue : PropTypes.func,
-    parseValue  : PropTypes.func
+    parseValue  : PropTypes.func,
+    type        : PropTypes.string
 };
 
 function formatStringValue(value, inputValue = undefined) {
@@ -123,6 +123,20 @@ export default class InputField extends Component {
         this._input = input;
     }
 
+    _renderTextArea(props) {
+
+        return (
+            <textarea { ...props }/>
+        );
+    }
+
+    _renderInput(props) {
+
+        return (
+            <input { ...props }/>
+        );
+    }
+
     render() {
 
         const propsWithoutOurs = _.omit(
@@ -135,8 +149,12 @@ export default class InputField extends Component {
             value   : this.getFormattedValue()
         });
 
-        return (
-            <input { ...props }/>
-        );
+        if (this.props.type === "textarea") {
+            return this._renderTextArea(props);
+        }
+
+        props.type = this.props.type;
+
+        return this._renderInput(props);
     }
 }
