@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
 
 import articlesFetchAllAction from "store/actions/articles/fetch-all";
+import history from "lib/history";
 
 import ArticlesListPage from "./component";
 
@@ -16,30 +16,20 @@ function mapStateToProps(state) {
 
     return {
         articles: collection,
-        fetching: actionInProgress === articlesFetchAllAction.TYPE
-    };
-}
+        fetching: actionInProgress === articlesFetchAllAction.TYPE,
 
-function mapDispatchToProps(dispatch) {
-
-    return {
         onCreateArticle() {
 
-            dispatch(
-                push("/articles/create")
-            );
+            history.push("/articles/create");
         },
 
         onEditArticle(article) {
 
-            dispatch(
-                push("/articles/edit/" + article.id)
-            );
+            history.push("/articles/edit/" + article.id);
         }
     };
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(ArticlesListPage);

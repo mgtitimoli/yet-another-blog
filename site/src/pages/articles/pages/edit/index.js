@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
 
 import articlesFetchAction from "store/actions/articles/fetch";
 import articlesFetchAllAction from "store/actions/articles/fetch-all";
 import articlesUpdateAction from "store/actions/articles/update";
+import history from "lib/history";
 
 import ArticlesEditPage from "./component";
 
@@ -23,31 +23,27 @@ function mapStateToProps(state) {
             actionInProgress === articlesFetchAction.TYPE ||
             actionInProgress === articlesFetchAllAction.TYPE,
 
-        saving: actionInProgress === articlesUpdateAction.TYPE
+        saving: actionInProgress === articlesUpdateAction.TYPE,
+
+        onCancelled() {
+
+            history.push("/articles/list");
+        },
+
+        onSaved() {
+
+            history.push("/articles/list");
+        }
     };
 }
 
 function mapDispatchToProps(dispatch) {
 
     return {
-        onConfirmEdit(article) {
+        onConfirmed(article) {
 
             dispatch(
                 articlesUpdateAction(article)
-            );
-        },
-
-        onCancelEdit() {
-
-            dispatch(
-                push("/articles/list")
-            );
-        },
-
-        onSaved() {
-
-            dispatch(
-                push("/articles/list")
             );
         }
     };

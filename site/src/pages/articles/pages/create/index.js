@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
 
 import articlesCreateAction from "store/actions/articles/create";
+import history from "lib/history";
 
 import ArticlesCreatePage from "./component";
 
@@ -12,31 +12,27 @@ function mapStateToProps(state) {
         .toJS();
 
     return {
-        saving: actionInProgress === articlesCreateAction.TYPE
+        saving: actionInProgress === articlesCreateAction.TYPE,
+
+        onCancelCreation() {
+
+            history.push("/articles/list");
+        },
+
+        onSaved() {
+
+            history.push("/articles/list");
+        }
     };
 }
 
 function mapDispatchToProps(dispatch) {
 
     return {
-        onCancelCreation() {
-
-            dispatch(
-                push("/articles/list")
-            );
-        },
-
         onConfirmCreation(article) {
 
             dispatch(
                 articlesCreateAction(article)
-            );
-        },
-
-        onSaved() {
-
-            dispatch(
-                push("/articles/list")
             );
         }
     };
