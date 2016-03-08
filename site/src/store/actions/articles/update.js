@@ -7,6 +7,6 @@ export function articlesUpdate(articlesService, article) {
 }
 
 export default createAsyncActionCreator(
-    "ARTICLES:UPDATE",
+    "ARTICLES/UPDATE",
     articlesUpdate.bind(undefined, articlesService)
 );

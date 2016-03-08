@@ -7,6 +7,6 @@ export function articlesCreate(articlesService, article) {
 }
 
 export default createAsyncActionCreator(
-    "ARTICLES:CREATE",
+    "ARTICLES/CREATE",
     articlesCreate.bind(undefined, articlesService)
 );

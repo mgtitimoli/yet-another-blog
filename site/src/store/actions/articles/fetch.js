@@ -7,6 +7,6 @@ export function articlesFetch(articlesService, articleId) {
 }
 
 export default createAsyncActionCreator(
-    "ARTICLES:FETCH",
+    "ARTICLES/FETCH",
     articlesFetch.bind(undefined, articlesService)
 );
