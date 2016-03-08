@@ -19,7 +19,16 @@ export default class ArticlesListPage extends Component {
         onEditArticle  : PropTypes.func.isRequired
     };
 
-    _renderArticleItems() {
+    _renderHeaderButtonsCreateArticle() {
+
+        return (
+            <button
+                onClick={ this.props.onCreateArticle }
+            >Create Article</button>
+        );
+    }
+
+    _renderArticleListItems() {
 
         return this.props.articles.map((article, index) => (
             <ArticleItem
@@ -30,12 +39,62 @@ export default class ArticlesListPage extends Component {
         ));
     }
 
-    render() {
+    _renderArticlesList() {
 
         return (
             <ul>
-                { this._renderArticleItems() }
+                { this._renderArticleListItems() }
             </ul>
+        );
+    }
+
+    _renderLoading() {
+
+        return (
+            <div>Loading</div>
+        );
+    }
+
+    _renderHeaderButtons() {
+
+        return (
+            <div>
+                { this._renderHeaderButtonsCreateArticle() }
+            </div>
+        );
+    }
+
+    _renderLoadingOrArticlesList() {
+
+        return this.props.fetching ?
+            this._renderLoading() :
+            this._renderArticlesList();
+    }
+
+    _renderHeader() {
+
+        return (
+            <div>
+                { this._renderHeaderButtons() }
+            </div>
+        );
+    }
+
+    _renderTitle() {
+
+        return (
+            <h1>Articles List</h1>
+        );
+    }
+
+    render() {
+
+        return (
+            <div>
+                { this._renderTitle() }
+                { this._renderHeader() }
+                { this._renderLoadingOrArticlesList() }
+            </div>
         );
     }
 }

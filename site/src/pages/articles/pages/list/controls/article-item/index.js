@@ -13,9 +13,8 @@ export default class ArticleItem extends Component {
     static displayName = ArticleItem.name;
 
     static propTypes = {
-        article : articlePropType.isRequired,
-        onEdit  : PropTypes.func.isRequired,
-        onRemove: PropTypes.func.isRequired
+        article: articlePropType.isRequired,
+        onEdit : PropTypes.func.isRequired
     };
 
     _handleActionLinkClick(actionName) {
@@ -45,7 +44,6 @@ export default class ArticleItem extends Component {
         return (
             <div>
                 { this._renderActionLink("Edit") }
-                { this._renderActionRemove("Remove") }
             </div>
         );
     }
