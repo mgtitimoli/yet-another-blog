@@ -1,3 +1,4 @@
 # We are using data directory to place all the data files we need to run,
 # but none of them should be pushed, so we are ignoring everything but this file
+*
 !.gitignore
