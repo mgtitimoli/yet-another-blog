@@ -54,14 +54,14 @@ export default class ArticleEditor extends Component {
 
     _getArticle() {
 
-        return Object
+        return Object.assign({}, this.props.article, Object
             .entries(this.articleFields)
             .reduce((article, [ key, articleField ]) => {
 
                 article[key] = articleField.getValue();
 
                 return article;
-            }, {});
+            }, {}));
     }
 
     _setArticleField(name, field) {
