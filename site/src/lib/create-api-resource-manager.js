@@ -43,10 +43,10 @@ export class ApiResourceManager {
             [];
     }
 
-    async update(props) {
+    async update(id, props) {
 
         const { content } = await this._request.sendJson(
-            this._resourcePath,
+            this._resourcePath + "/" + id,
             "PUT",
             props
         );
