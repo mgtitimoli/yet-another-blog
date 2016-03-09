@@ -1,9 +1,9 @@
-import ArticlesEditPageContainer from "./index";
-
 import articlesEditAction from "store/actions/articles/edit";
-import articlesFetchAction from "store/actions/articles/edit";
-
+import articlesEndEditionAction from "store/actions/articles/end-edition";
+import articlesFetchAction from "store/actions/articles/fetch";
 import store from "store";
+
+import ArticlesEditPageContainer from "./index";
 
 export default {
     path     : "edit/:articleId",
@@ -19,12 +19,19 @@ export default {
             return;
         }
 
-        await store.dispatch(
+        const article = await store.dispatch(
             articlesFetchAction(params.articleId)
         );
 
         store.dispatch(
-            articlesEditAction(params.articleId)
+            articlesEditAction(article)
         );
-    }
+    },
+
+    onLeave() {
+
+        store.dispatch(
+            articlesEndEditionAction()
+        );
+    } 
 };
