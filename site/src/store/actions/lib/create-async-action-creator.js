@@ -21,7 +21,7 @@ export default function createAsyncActionCreator(
 
             let result;
 
-            dispatch(actionCreators[TYPE_STARTED]());
+            dispatch(actionCreators[TYPE_STARTED](...args));
 
             try {
                 result = await executeAsync(...args, getState, dispatch);
