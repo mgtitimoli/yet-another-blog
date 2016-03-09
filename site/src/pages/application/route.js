@@ -1,16 +1,25 @@
+import redirectToChildRoute from "lib/redirect-to-child-route";
+
 import articlesRoute from "pages/articles/route";
 
 import Application from "./index";
 
+const THIS_PATH = "/";
+
 export default {
     component  : Application,
-    path       : "/",
+    path       : THIS_PATH,
     childRoutes: [
         articlesRoute
-    ]/*,
+    ],
 
-    onEnter(nextState, replace) {
+    onEnter({ location }, replaceLocation) {
 
-        replace("/articles");
-    }*/
+        redirectToChildRoute(
+            THIS_PATH,
+            articlesRoute,
+            location,
+            replaceLocation
+        );
+    }
 };
