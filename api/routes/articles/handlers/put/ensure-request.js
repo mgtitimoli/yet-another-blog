@@ -25,7 +25,7 @@ export default function ensureRequest(
 
     ensureArticleHasProps(
         validProps,
-        2, // at least one prop (+ id) had to be provided to modify something
+        1, // at least one prop had to be provided to modify something
         article
     );
 }
