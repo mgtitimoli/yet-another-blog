@@ -19,13 +19,16 @@ export default {
             return;
         }
 
-        const article = await store.dispatch(
+        const result = await store.dispatch(
             articlesFetchAction(params.articleId)
         );
 
-        store.dispatch(
-            articlesEditAction(article)
-        );
+        // TODO: dispatch ARTICLES/EDIT_INVALID_ARTICLE once it had been created 
+        if (!(result instanceof Error)) {
+            store.dispatch(
+                articlesEditAction(result /* = article */)
+            );
+        }
     },
 
     onLeave() {
