@@ -112,11 +112,6 @@ export default class InputField extends Component {
         }
     }
 
-    _setInput(input) {
-
-        this._input = input;
-    }
-
     _renderTextArea(props) {
 
         return (
