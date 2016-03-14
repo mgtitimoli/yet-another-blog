@@ -4,6 +4,8 @@ import React, {
     PropTypes
 } from "react";
 
+import setComponentState from "lib/set-component-state";
+
 const inputPropTypes = {
     className: PropTypes.string,
     style    : PropTypes.object
@@ -78,24 +80,16 @@ export default class InputField extends Component {
 
     reset() {
 
-        this.setValue(this.props.defaultValue);
+        return this.setValue(this.props.defaultValue);
     }
 
     setValue(value) {
 
         const formattedValue = this.props.formatValue(value);
 
-        return this._asyncSetState({
+        return setComponentState(this, {
             formattedValue,
             value
-        });
-    }
-
-    _asyncSetState(state) {
-
-        return new Promise(resolve => {
-
-            this.setState(state, resolve);
         });
     }
 
@@ -106,7 +100,7 @@ export default class InputField extends Component {
         const value          = this.props.parseValue(inputValue);
         const formattedValue = this.props.formatValue(value, inputValue);
 
-        await this._asyncSetState({
+        await setComponentState(this, {
             formattedValue,
             value
         });
