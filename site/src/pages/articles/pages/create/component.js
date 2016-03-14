@@ -34,12 +34,12 @@ export default class ArticlesCreatePage extends Component {
 
         this._setArticleEditor = this._setArticleEditor.bind(this);
 
-        this.resetArticle();
+        this.reset();
     }
 
     _articleEditor = null;
 
-    async resetArticle()  {
+    async reset()  {
 
         await setComponentState(this, {
             newArticle: {
@@ -64,7 +64,7 @@ export default class ArticlesCreatePage extends Component {
             }
         );
 
-        await this.resetArticle();
+        await this.reset();
 
         this.props.onArticleCreated(article);
     }
