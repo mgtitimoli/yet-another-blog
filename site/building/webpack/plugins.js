@@ -1,11 +1,17 @@
 "use strict";
 
+// var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 var webpack = require("webpack");
 
 var environment = require("../lib/environment");
 var config      = require("../config");
 
 var plugins = [
+    // new ExtractTextPlugin("bundle.css", {
+    //     allChunks: true
+    // }),
+
     new webpack.DefinePlugin({
         __config: JSON.stringify(config)
     }),
