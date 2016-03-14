@@ -5,40 +5,29 @@ import history from "lib/history";
 
 import ArticlesCreatePage from "./component";
 
-function mapStateToProps(state) {
-
-    const { actionInProgress } = state
-        .get("articles")
-        .toJS();
+function mapDispatchToProps(dispatch) {
 
     return {
-        saving: actionInProgress === articlesCreateAction.TYPE,
+        createArticle(partialArticle) {
 
-        onCancelled() {
+            return dispatch(
+                articlesCreateAction(partialArticle)
+            );
+        },
+
+        onArticleCreated() {
 
             history.push("/articles/list");
         },
 
-        onSaved() {
+        onCancelled() {
 
             history.push("/articles/list");
-        }
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-
-    return {
-        onConfirmed(article) {
-
-            dispatch(
-                articlesCreateAction(article)
-            );
         }
     };
 }
 
 export default connect(
-    mapStateToProps,
+    undefined,
     mapDispatchToProps
 )(ArticlesCreatePage);

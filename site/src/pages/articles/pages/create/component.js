@@ -3,6 +3,9 @@ import React, {
     PropTypes
 } from "react";
 
+import executeAsyncInComponent from "lib/execute-async-in-component";
+import setComponentState from "lib/set-component-state";
+
 import ArticleEditor from "pages/articles/controls/article-editor";
 // import styles from "./component.css";
 
@@ -11,45 +14,64 @@ export default class ArticlesCreatePage extends Component {
     static displayName = ArticlesCreatePage.name;
 
     static propTypes = {
-        onCancelled: PropTypes.func.isRequired,
-        onConfirmed: PropTypes.func.isRequired,
-        onSaved    : PropTypes.func.isRequired,
-        saving     : PropTypes.bool.isRequired
+        createArticle   : PropTypes.func.isRequired,
+        onArticleCreated: PropTypes.func.isRequired,
+        onCancelled     : PropTypes.func.isRequired
     };
 
     state = {
-        newArticle: {
-            title  : "",
-            content: ""
-        },
-
-        saved : false,
-        saving: false
+        creating          : false,
+        error             : null,
+        lastCreatedArticle: null,
+        newArticle        : null
     };
 
     componentWillMount() {
 
-        this._receiveProps(this.props);
+        this._handleArticleEditorConfirmed = this
+            ._handleArticleEditorConfirmed
+            .bind(this);
+
+        this._setArticleEditor = this._setArticleEditor.bind(this);
+
+        this.resetArticle();
     }
 
-    componentWillReceiveProps(props) {
+    _articleEditor = null;
 
-        this._receiveProps(props);
+    async resetArticle()  {
+
+        await setComponentState(this, {
+            newArticle: {
+                title  : "",
+                content: ""
+            }
+        });
+
+        await this
+            ._articleEditor
+            .reset();
     }
 
-    _receiveProps(props) {
+    async _handleArticleEditorConfirmed(partialArticle) {
 
-        const { saving } = props;
+        const article = await executeAsyncInComponent(
+            this,
+            () => this.props.createArticle(partialArticle),
+            {
+                progress: "creating",
+                result  : "lastCreatedArticle"
+            }
+        );
 
-        const state = {
-            saving
-        };
+        await this.resetArticle();
 
-        if (!saving && this.state.saving) {
-            state.saved = true;
-        }
+        this.props.onArticleCreated(article);
+    }
 
-        this.setState(state);
+    _setArticleEditor(articleEditor) {
+
+        this._articleEditor = articleEditor;
     }
 
     _renderArticleEditor() {
@@ -57,9 +79,32 @@ export default class ArticlesCreatePage extends Component {
         return (
             <ArticleEditor
                 article={ this.state.newArticle }
+                disabled={ this.state.creating }
                 onCancelled={ this.props.onCancelled }
-                onConfirmed={ this.props.onConfirmed }
+                onConfirmed={ this._handleArticleEditorConfirmed }
+                ref={ this._setArticleEditor }
             />
+        );
+    }
+
+    _renderCreating() {
+
+        if (!this.state.creating) {
+            return null;
+        }
+
+        return (
+            <div>Creating...</div>
+        );
+    }
+
+    _renderContent() {
+
+        return (
+            <div>
+                { this._renderCreating() }
+                { this._renderArticleEditor() }
+            </div>
         );
     }
 
@@ -72,14 +117,10 @@ export default class ArticlesCreatePage extends Component {
 
     render() {
 
-        if (this.state.saved) {
-            this.props.onSaved();
-        }
-
         return (
             <div>
                 { this._renderTitle() }
-                { this._renderArticleEditor() }
+                { this._renderContent() }
             </div>
         );
     }
