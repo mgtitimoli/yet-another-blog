@@ -37,7 +37,7 @@ export class ApiResourceManager {
             this._resourcePath
         );
 
-        // http status 204 (NO CONTENT) => !result 
+        // http status 204 (NO CONTENT) => !result
         return content && content.result ?
             content.result :
             [];
@@ -52,7 +52,7 @@ export class ApiResourceManager {
         );
 
         // http status 304 (NOT MODIFIED) => !result
-        return Boolean(content && content.result);
+        return content && content.result;
     }
 }
 
