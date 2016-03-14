@@ -3,6 +3,12 @@ import formUrlEncoded from "form-urlencoded";
 
 const CONTENT_TYPE_JSON = "application/json";
 
+const statusWithContent = [
+    httpStatus.OK,
+    httpStatus.CREATED,
+    httpStatus.ACCEPTED
+];
+
 function ensureIsSucceed(response) {
 
     if (response.status >= 200 && response.status < 400) {
@@ -27,7 +33,7 @@ async function safeFetch(url, options) {
 async function safeFetchJson(url, options) {
 
     const response = await safeFetch(url, options);
-    const content  = response.status === httpStatus.OK ?
+    const content  = statusWithContent.includes(response.status) ?
         await response.json() :
         undefined;
 
