@@ -1,16 +1,16 @@
-"use strict";
+import gulp from "gulp";
+import loadPlugins from "gulp-load-plugins";
 
-var gulp    = require("gulp");
-var plugins = require("gulp-load-plugins")();
+import environment from "../../lib/environment";
 
-var environment = require("../../lib/environment");
+import localLocations from "../../locations/local";
+import remoteLocations from "../../locations/remote";
 
-var localLocations  = require("../../locations/local");
-var remoteLocations = require("../../locations/remote");
+const plugins = loadPlugins();
 
-gulp.task("server", function () {
+gulp.task("server", () => {
 
-    var proxies = [
+    const proxies = [
         {
             source : remoteLocations.paths.api,
             target : "http://localhost:3000"

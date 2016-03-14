@@ -1,10 +1,8 @@
-"use strict";
+import gulp from "gulp";
 
-var gulp = require("gulp");
+import localLocations from "../../../locations/local";
 
-var localLocations = require("../../../locations/local");
-
-gulp.task("watch:ejs", function () {
+gulp.task("watch:ejs", () => {
 
     gulp.watch(localLocations.globs.ejs, [ "build:ejs" ]);
 });

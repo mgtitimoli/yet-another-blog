@@ -1,15 +1,15 @@
-"use strict";
+import gulp from "gulp";
+import loadPlugins from "gulp-load-plugins";
 
-var gulp    = require("gulp");
-var plugins = require("gulp-load-plugins")();
+import runWebpackDevServer from "../../webpack/run-dev-server";
 
-var runWebpackDevServer = require("../../webpack/run-dev-server");
+const plugins = loadPlugins();
 
-gulp.task("webpack-dev-server", function (/*onTaskDone*/) {
+gulp.task("webpack-dev-server", (/*onTaskDone*/) => {
 
-    runWebpackDevServer("localhost", 8001, function onStarted(err) {
+    runWebpackDevServer("localhost", 8001, err => {
 
-        var gutil = plugins.util;
+        const gutil = plugins.util;
 
         if (err) {
             throw new gutil.PluginError("webpack-dev-server", err);

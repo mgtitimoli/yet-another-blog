@@ -1,15 +1,15 @@
-"use strict";
+import gulp from "gulp";
+import loadPlugins from "gulp-load-plugins";
 
-var gulp    = require("gulp");
-var plugins = require("gulp-load-plugins")();
+import runWebpack from "../../../webpack/run";
 
-var runWebpack = require("../../../webpack/run");
+const plugins = loadPlugins();
 
-gulp.task("build:assets", function (onTaskDone) {
+gulp.task("build:assets", onTaskDone => {
 
-    runWebpack(function onWebPackDone(err, stats) {
+    runWebpack((err, stats) => {
 
-        var gutil = plugins.util;
+        const gutil = plugins.util;
 
         if (err) {
             throw new gutil.PluginError("webpack", err);

@@ -1,21 +1,21 @@
-"use strict";
+import gulp from "gulp";
+import loadPlugins from "gulp-load-plugins";
 
-var gulp    = require("gulp");
-var plugins = require("gulp-load-plugins")();
+import localLocations from "../../../locations/local";
+import remoteLocations from "../../../locations/remote";
 
-var localLocations  = require("../../../locations/local");
-var remoteLocations = require("../../../locations/remote");
+const plugins = loadPlugins();
 
-gulp.task("build:ejs", function () {
+gulp.task("build:ejs", () => {
 
-    var tamplatesParams = {
+    const tamplatesParams = {
         bundles: [
             remoteLocations.files.vendorBundle,
             remoteLocations.files.mainBundle
         ]
     };
 
-    var options = {
+    const options = {
         ext: ".html"
     };
 
