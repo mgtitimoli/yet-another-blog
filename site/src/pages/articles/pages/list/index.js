@@ -5,18 +5,15 @@ import history from "lib/history";
 
 import ArticlesListPage from "./component";
 
-function mapStateToProps(state) {
-
-    const {
-        actionInProgress,
-        collection
-    } = state
-        .get("articles")
-        .toJS();
+function mapDispatchToProps(dispatch) {
 
     return {
-        articles: collection,
-        fetching: actionInProgress === articlesFetchAllAction.TYPE,
+        getArticles() {
+
+            return dispatch(
+                articlesFetchAllAction()
+            );
+        },
 
         onCreateArticle() {
 
@@ -31,5 +28,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(
-    mapStateToProps
+    undefined,
+    mapDispatchToProps
 )(ArticlesListPage);

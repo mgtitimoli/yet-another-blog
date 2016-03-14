@@ -3,7 +3,7 @@ import React, {
     PropTypes
 } from "react";
 
-import articlePropType from "pages/articles/lib/article-prop-type";
+import executeAsyncInComponent from "lib/execute-async-in-component";
 
 import ArticleItem from "./controls/article-item";
 // import styles from "./component.css";
@@ -13,11 +13,33 @@ export default class ArticlesListPage extends Component {
     static displayName = ArticlesListPage.name;
 
     static propTypes = {
-        articles       : PropTypes.arrayOf(articlePropType).isRequired,
-        fetching       : PropTypes.bool.isRequired,
+        getArticles    : PropTypes.func.isRequired,
         onCreateArticle: PropTypes.func.isRequired,
         onEditArticle  : PropTypes.func.isRequired
     };
+
+    state = {
+        articles: null,
+        error   : null,
+        loading : false
+    };
+
+    componentWillMount() {
+
+        this.getArticles();
+    }
+
+    getArticles() {
+
+        return executeAsyncInComponent(
+            this,
+            () => this.props.getArticles(),
+            {
+                progress: "loading",
+                result  : "articles"
+            }
+        );
+    }
 
     _renderHeaderButtonsCreateArticle() {
 
@@ -30,7 +52,7 @@ export default class ArticlesListPage extends Component {
 
     _renderArticleListItems() {
 
-        return this.props.articles.map((article, index) => (
+        return this.state.articles.map((article, index) => (
             <ArticleItem
                 article={ article }
                 key={ index }
@@ -46,6 +68,24 @@ export default class ArticlesListPage extends Component {
                 { this._renderArticleListItems() }
             </ul>
         );
+    }
+
+    _renderError() {
+
+        const textContent =
+            "We could not fetch the articles right now, " +
+            "please try again later";
+
+        return (
+            <div>{ textContent }</div>
+        );
+    }
+
+    _renderContent() {
+
+        return this.state.error ?
+            this._renderError() :
+            this._renderArticlesList();
     }
 
     _renderLoading() {
@@ -64,11 +104,11 @@ export default class ArticlesListPage extends Component {
         );
     }
 
-    _renderLoadingOrArticlesList() {
+    _renderLoadingOrContent() {
 
-        return this.props.fetching ?
+        return this.state.loading ?
             this._renderLoading() :
-            this._renderArticlesList();
+            this._renderContent();
     }
 
     _renderHeader() {
@@ -93,7 +133,7 @@ export default class ArticlesListPage extends Component {
             <div>
                 { this._renderTitle() }
                 { this._renderHeader() }
-                { this._renderLoadingOrArticlesList() }
+                { this._renderLoadingOrContent() }
             </div>
         );
     }
