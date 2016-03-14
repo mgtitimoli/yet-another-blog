@@ -16,6 +16,7 @@ const formPropTypes = {
 
 const ourPropTypes = {
     article    : articlePropType,
+    disabled   : PropTypes.bool,
     onCancelled: PropTypes.func.isRequired,
     onConfirmed: PropTypes.func.isRequired
 };
@@ -29,6 +30,10 @@ export default class ArticleEditor extends Component {
         formPropTypes,
         ourPropTypes
     );
+
+    static defaultProps = {
+        disabled: false
+    };
 
     componentWillMount() {
 
@@ -81,7 +86,10 @@ export default class ArticleEditor extends Component {
     _renderActionsButton(label, handleClick) {
 
         return (
-            <button onClick={ handleClick }>
+            <button
+                disabled={  this.props.disabled }
+                onClick={ handleClick }
+            >
                 { label }
             </button>
         );
@@ -104,6 +112,7 @@ export default class ArticleEditor extends Component {
                 <div>Content</div>
                 <InputField
                     defaultValue={ this.props.article.content }
+                    disabled={ this.props.disabled }
                     ref={ this._setArticleField.bind(this, "content") }
                     type="textarea"
                 />
@@ -118,6 +127,7 @@ export default class ArticleEditor extends Component {
                 <div>Title</div>
                 <InputField
                     defaultValue={ this.props.article.title }
+                    disabled={ this.props.disabled }
                     ref={ this._setArticleField.bind(this, "title") }
                 />
             </label>
