@@ -7,7 +7,7 @@ import executeAsyncInComponent from "lib/execute-async-in-component";
 import setComponentState from "lib/set-component-state";
 
 import ArticleEditor from "pages/articles/controls/article-editor";
-// import styles from "./component.css";
+import cssClasses from "./component.css";
 
 export default class ArticlesCreatePage extends Component {
 
@@ -118,7 +118,7 @@ export default class ArticlesCreatePage extends Component {
     render() {
 
         return (
-            <div>
+            <div className={ cssClasses.component }>
                 { this._renderTitle() }
                 { this._renderContent() }
             </div>
