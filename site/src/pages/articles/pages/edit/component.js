@@ -3,8 +3,9 @@ import React, {
     PropTypes
 } from "react";
 
+import executeAsyncInComponent from "lib/execute-async-in-component";
+
 import ArticleEditor from "pages/articles/controls/article-editor";
-import articlePropType from "pages/articles/lib/article-prop-type";
 // import styles from "./component.css";
 
 export default class ArticlesEditPage extends Component {
@@ -12,59 +13,85 @@ export default class ArticlesEditPage extends Component {
     static displayName = ArticlesEditPage.name;
 
     static propTypes = {
-        article    : articlePropType,
-        fetching   : PropTypes.bool.isRequired,
-        onCancelled: PropTypes.func.isRequired,
-        onConfirmed: PropTypes.func.isRequired,
-        onSaved    : PropTypes.func.isRequired,
-        saving     : PropTypes.bool.isRequired
+        getArticle      : PropTypes.func.isRequired,
+        onArticleUpdated: PropTypes.func.isRequired,
+        onCancelled     : PropTypes.func.isRequired,
+        updateArticle   : PropTypes.func.isRequired
     };
 
     state = {
-        saved : false,
-        saving: false
+        article : null,
+        error   : null,
+        loading : false,
+        updating: false
     };
 
     componentWillMount() {
 
-        this._receiveProps(this.props);
+        this._handleArticleEditorConfirmed = this
+            ._handleArticleEditorConfirmed
+            .bind(this);
+
+        this.resetArticle();
     }
 
-    componentWillReceiveProps(props) {
+    resetArticle() {
 
-        this._receiveProps(props);
+        return executeAsyncInComponent(
+            this,
+            () => this.props.getArticle(),
+            {
+                progress: "loading",
+                result  : "article"
+            }
+        );
     }
 
-    _receiveProps(props) {
+    async _handleArticleEditorConfirmed(article) {
 
-        const { saving } = props;
+        const updatedArticle = await executeAsyncInComponent(
+            this,
+            () => this.props.updateArticle(article),
+            {
+                progress: "updating",
+                result  : "article"
+            }
+        );
 
-        const state = {
-            saving
-        };
-
-        if (!saving && this.state.saving) {
-            state.saved = true;
-        }
-
-        this.setState(state);
+        this.props.onArticleUpdated(updatedArticle);
     }
 
     _renderArticleEditor() {
 
         return (
             <ArticleEditor
-                article={ this.props.article }
+                article={ this.state.article }
+                disabled={ this.state.updating }
                 onCancelled={ this.props.onCancelled }
-                onConfirmed={ this.props.onConfirmed }
+                onConfirmed={ this._handleArticleEditorConfirmed }
             />
         );
     }
 
-    _renderLoading() {
+    _renderUpdating() {
+
+        if (!this.state.updating) {
+            return null;
+        }
 
         return (
-            <div>Loading</div>
+            <div>Updating...</div>
+        );
+    }
+
+    _renderError() {
+
+        if (!this.state.error) {
+            return null;
+        }
+
+        return (
+            <div>Error!</div>
         );
     }
 
@@ -78,13 +105,31 @@ export default class ArticlesEditPage extends Component {
         );
     }
 
+    _renderLoading() {
+
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    _renderContent() {
+
+        return (
+            <div>
+                { this._renderError() }
+                { this._renderUpdating() }
+                { this._renderArticleEditor() }
+            </div>
+        );
+    }
+
     _renderContentOrNotFound() {
 
-        if (this.props.article) {
-            return this._renderArticleEditor();
+        if (this.state.article) {
+            return this._renderContent();
         }
 
-        return this.props.fetching ?
+        return this.state.loading ?
             this._renderLoading() :
             this._renderNotFound();
     }
@@ -97,10 +142,6 @@ export default class ArticlesEditPage extends Component {
     }
 
     render() {
-
-        if (this.state.saved) {
-            this.props.onSaved();
-        }
 
         return (
             <div>

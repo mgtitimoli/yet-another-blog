@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { PropTypes } from "react";
 
 import articlesFetchAction from "store/actions/articles/fetch";
 import articlesUpdateAction from "store/actions/articles/update";
@@ -6,45 +7,46 @@ import history from "lib/history";
 
 import ArticlesEditPage from "./component";
 
-function mapStateToProps(state) {
-
-    const {
-        actionInProgress,
-        inEditionArticle
-    } = state
-        .get("articles")
-        .toJS();
+function mapDispatchToProps(dispatch, { params }) {
 
     return {
-        article : inEditionArticle,
-        fetching: actionInProgress === articlesFetchAction.TYPE,
-        saving  : actionInProgress === articlesUpdateAction.TYPE,
+        onArticleUpdated() {
+
+            history.push("/articles/list");
+        },
 
         onCancelled() {
 
             history.push("/articles/list");
         },
 
-        onSaved() {
+        getArticle() {
 
-            history.push("/articles/list");
-        }
-    };
-}
+            return dispatch(
+                articlesFetchAction(params.articleId)
+            );
+        },
 
-function mapDispatchToProps(dispatch) {
+        updateArticle(article) {
 
-    return {
-        onConfirmed(article) {
-
-            dispatch(
+            return dispatch(
                 articlesUpdateAction(article)
             );
         }
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ArticlesEditPage);
+export default Object.assign(
+    connect(
+        undefined,
+        mapDispatchToProps
+    )(ArticlesEditPage),
+    {
+        propTypes: {
+            params: PropTypes.shape({
+                articleId: PropTypes.string.isRequired
+            }).isRequired
+        }
+    }
+);
+
