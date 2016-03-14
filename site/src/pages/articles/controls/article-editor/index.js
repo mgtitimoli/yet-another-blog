@@ -38,6 +38,15 @@ export default class ArticleEditor extends Component {
 
     articleFields = {};
 
+    reset() {
+
+        return Promise.all(
+            Object
+                .values(this.articleFields)
+                .map(articleField => articleField.reset())
+        );
+    }
+
     _handleConfirm(event) {
 
         event.preventDefault();
