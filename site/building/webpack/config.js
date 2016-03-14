@@ -1,5 +1,7 @@
 "use strict";
 
+// var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 var environment = require("../lib/environment");
 
 var localLocations  = require("../locations/local");
@@ -47,11 +49,16 @@ var config = {
                 loaders: [ "json-loader" ]
             },
             {
-                test   : /\.css$/,
-                // we are passing -discardComments to disable discardComments cssnano plugin
-                // that is causing css-loader/lib/processCss file to incorrectly process
-                // the css, and not replacing multiple occurences of "src: url()" in the same css selector
-                loaders: [ "style-loader", "css-loader?-discardComments", "postcss-loader" ]
+                test  : /\.css$/,
+                // loader: ExtractTextPlugin.extract("style-loader", [
+                //     "css-loader?modules&importLoaders=1",
+                //     "postcss-loader"
+                // ])
+                loaders: [
+                    "style-loader",
+                    "css-loader?modules&importLoaders=1",
+                    "postcss-loader"
+                ]
             },
             {
                 test  : /\.(png|jpg)$/,
