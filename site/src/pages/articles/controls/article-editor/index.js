@@ -111,8 +111,8 @@ export default class ArticleEditor extends Component {
             <label>
                 <div>Content</div>
                 <InputField
-                    defaultValue={ this.props.article.content }
                     disabled={ this.props.disabled }
+                    initialValue={ this.props.article.content }
                     ref={ this._setArticleField.bind(this, "content") }
                     type="textarea"
                 />
@@ -126,8 +126,8 @@ export default class ArticleEditor extends Component {
             <label>
                 <div>Title</div>
                 <InputField
-                    defaultValue={ this.props.article.title }
                     disabled={ this.props.disabled }
+                    initialValue={ this.props.article.title }
                     ref={ this._setArticleField.bind(this, "title") }
                 />
             </label>

@@ -12,9 +12,9 @@ const inputPropTypes = {
 };
 
 const ourPropTypes = {
-    defaultValue: PropTypes.any,
-    onChange    : PropTypes.func,
+    initialValue: PropTypes.any,
     formatValue : PropTypes.func,
+    onChange    : PropTypes.func,
     parseValue  : PropTypes.func,
     type        : PropTypes.string
 };
@@ -46,7 +46,7 @@ export default class InputField extends Component {
     );
 
     static defaultProps = {
-        defaultValue: null,
+        initialValue: null,
         formatValue : formatStringValue,
         parseValue  : noParse
     };
@@ -63,9 +63,9 @@ export default class InputField extends Component {
         this.reset();
     }
 
-    getDefaultValue() {
+    getInitialValue() {
 
-        return this.props.defaultValue;
+        return this.props.initialValue;
     }
 
     getFormattedValue() {
@@ -80,7 +80,7 @@ export default class InputField extends Component {
 
     reset() {
 
-        return this.setValue(this.props.defaultValue);
+        return this.setValue(this.props.initialValue);
     }
 
     setValue(value) {
