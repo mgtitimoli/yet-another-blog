@@ -1,4 +1,4 @@
-import gulp from "gulp";
+import gulp from "../../index";
 import loadPlugins from "gulp-load-plugins";
 
 import localLocations from "../../../locations/local";
@@ -6,7 +6,7 @@ import remoteLocations from "../../../locations/remote";
 
 const plugins = loadPlugins();
 
-gulp.task("build:ejs", () => {
+gulp.task("build:ejs", false, () => {
 
     const tamplatesParams = {
         bundles: [

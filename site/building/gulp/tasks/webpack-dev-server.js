@@ -1,11 +1,12 @@
-import gulp from "gulp";
 import loadPlugins from "gulp-load-plugins";
+
+import gulp from "../index";
 
 import runWebpackDevServer from "../../webpack/run-dev-server";
 
 const plugins = loadPlugins();
 
-gulp.task("webpack-dev-server", (/*onTaskDone*/) => {
+gulp.task("webpack-dev-server", false, (/*onTaskDone*/) => {
 
     runWebpackDevServer("localhost", 8001, err => {
 

@@ -1,11 +1,11 @@
-import gulp from "gulp";
+import gulp from "../../index";
 import loadPlugins from "gulp-load-plugins";
 
 import runWebpack from "../../../webpack/run";
 
 const plugins = loadPlugins();
 
-gulp.task("build:assets", onTaskDone => {
+gulp.task("build:assets", false, onTaskDone => {
 
     runWebpack((err, stats) => {
 

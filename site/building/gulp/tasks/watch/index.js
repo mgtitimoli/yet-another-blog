@@ -1,3 +1,3 @@
-import gulp from "gulp";
+import gulp from "../../index";
 
-gulp.task("watch", [ "watch:ejs" ]);
+gulp.task("watch", false, [ "watch:ejs" ]);

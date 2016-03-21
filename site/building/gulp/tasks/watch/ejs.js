@@ -1,8 +1,8 @@
-import gulp from "gulp";
+import gulp from "../../index";
 
 import localLocations from "../../../locations/local";
 
-gulp.task("watch:ejs", () => {
+gulp.task("watch:ejs", false, () => {
 
     gulp.watch(localLocations.globs.ejs, [ "build:ejs" ]);
 });
