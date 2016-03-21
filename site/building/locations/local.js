@@ -19,7 +19,8 @@ module.exports = {
     },
 
     files: {
-        main       : path.join(srcDir, "main.js"),
+        mainCss    : path.join(srcDir, "index.css"),
+        mainJs     : path.join(srcDir, "main.js"),
         packageJson: path.join(rootDir, "package.json")
     },
 

@@ -1,7 +1,5 @@
 "use strict";
 
-// var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 var environment = require("../lib/environment");
 
 var localLocations  = require("../locations/local");
@@ -10,10 +8,14 @@ var remoteLocations = require("../locations/remote");
 var config = {
     entry: {
         main: [
-            localLocations.files.main
+            localLocations.files.mainJs
         ],
         vendor: [
+            "babel-polyfill",
+            "immutable",
             "react",
+            "react-dom",
+            "react-router",
             "redux",
             "react-redux"
         ]
@@ -24,7 +26,7 @@ var config = {
     plugins: require("./plugins"),
     output : {
         path      : localLocations.dirs.dist.assets,
-        publicPath: remoteLocations.paths.assets,
+        publicPath: remoteLocations.paths.assets + "/",
         filename  : "[name].bundle.js"
     },
     resolve: {
@@ -36,30 +38,37 @@ var config = {
         loaders: [
             {
                 test   : /\.js$/,
+                exclude: [
+                    localLocations.dirs.deps
+                ],
                 loaders: [
                     "babel-loader",
                     "eslint-loader"
-                ],
-                exclude: [
-                    localLocations.dirs.deps
                 ]
             },
             {
                 test   : /\.json$/,
                 loaders: [ "json-loader" ]
             },
+            // BEGIN: css
             {
-                test  : /\.css$/,
-                // loader: ExtractTextPlugin.extract("style-loader", [
-                //     "css-loader?modules&importLoaders=1",
-                //     "postcss-loader"
-                // ])
+                test   : localLocations.files.mainCss,
+                loaders: [
+                    "style-loader",
+                    "css-loader?importLoaders=1",
+                    "postcss-loader"
+                ]
+            },
+            {
+                test   : /\.css$/,
+                exclude: localLocations.files.mainCss,
                 loaders: [
                     "style-loader",
                     "css-loader?modules&importLoaders=1",
                     "postcss-loader"
                 ]
             },
+            // END: css
             {
                 test  : /\.(png|jpg)$/,
                 // inline base64 URLs for <=8k images, direct URLs for the rest
