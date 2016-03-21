@@ -3,10 +3,10 @@ import React, {
     PropTypes
 } from "react";
 
+import Article from "pages/articles/controls/article";
 import articlePropType from "pages/articles/lib/article-prop-type";
 
-import Article from "./controls/article";
-// import styles from "./index.css";
+import styles from "./index.css";
 
 export default class ArticleItem extends Component {
 
@@ -14,7 +14,8 @@ export default class ArticleItem extends Component {
 
     static propTypes = {
         article: articlePropType.isRequired,
-        onEdit : PropTypes.func.isRequired
+        onEdit : PropTypes.func.isRequired,
+        onView : PropTypes.func.isRequired
     };
 
     _handleActionLinkClick(actionName) {
@@ -22,7 +23,14 @@ export default class ArticleItem extends Component {
         this.props["on" + actionName](this.props.article);
     }
 
-    _renderActionLink(actionName) {
+    _renderActionSeparator() {
+
+        return (
+            <span className={ styles.actionSeparator }>|</span>
+        );
+    }
+
+    _renderActionLink(actionName, label = actionName) {
 
         const handleClick = this
             ._handleActionLinkClick
@@ -33,16 +41,18 @@ export default class ArticleItem extends Component {
 
         return (
             <a
-                href="#"
+                className={ styles.actionLink }
                 onClick={ handleClick }
-            >{ actionName }</a>
+            >{ label }</a>
         );
     }
 
     _renderActions() {
 
         return (
-            <div>
+            <div className={ styles.actions }>
+                { this._renderActionLink("View", "Read More") }
+                { this._renderActionSeparator() }
                 { this._renderActionLink("Edit") }
             </div>
         );
@@ -51,16 +61,23 @@ export default class ArticleItem extends Component {
     _renderArticle() {
 
         return (
-            <Article article={ this.props.article }/>
+            <Article
+                article={ this.props.article }
+                className={ styles.article }
+                contentClassName={ styles.articleContent }
+                contentMaxLines={ 3 }
+                titleClassName={ styles.articleTitle }
+                titleMaxLines={ 1 }
+            />
         );
     }
 
     render() {
 
         return (
-            <li>
-                { this._renderArticle() }
+            <li className={ styles.component }>
                 { this._renderActions() }
+                { this._renderArticle() }
             </li>
         );
     }

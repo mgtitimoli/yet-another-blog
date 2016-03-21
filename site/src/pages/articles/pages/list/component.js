@@ -3,10 +3,11 @@ import React, {
     PropTypes
 } from "react";
 
+import ActionButton from "controls/action-button";
 import executeAsyncInComponent from "lib/execute-async-in-component";
 
 import ArticleItem from "./controls/article-item";
-// import styles from "./component.css";
+import styles from "./component.css";
 
 export default class ArticlesListPage extends Component {
 
@@ -15,7 +16,8 @@ export default class ArticlesListPage extends Component {
     static propTypes = {
         getArticles    : PropTypes.func.isRequired,
         onCreateArticle: PropTypes.func.isRequired,
-        onEditArticle  : PropTypes.func.isRequired
+        onEditArticle  : PropTypes.func.isRequired,
+        onViewArticle  : PropTypes.func.isRequired
     };
 
     state = {
@@ -44,19 +46,21 @@ export default class ArticlesListPage extends Component {
     _renderHeaderButtonsCreateArticle() {
 
         return (
-            <button
+            <ActionButton
                 onClick={ this.props.onCreateArticle }
-            >Create Article</button>
+                type={ ActionButton.TYPE_ACCEPT }
+            >Create Article</ActionButton>
         );
     }
 
     _renderArticleListItems() {
 
-        return this.state.articles.map((article, index) => (
+        return this.state.articles.reverse().map((article, index) => (
             <ArticleItem
                 article={ article }
                 key={ index }
                 onEdit={ this.props.onEditArticle }
+                onView={ this.props.onViewArticle }
             />
         ));
     }
@@ -64,7 +68,7 @@ export default class ArticlesListPage extends Component {
     _renderArticlesList() {
 
         return (
-            <ul>
+            <ul className={ styles.list }>
                 { this._renderArticleListItems() }
             </ul>
         );
@@ -123,14 +127,14 @@ export default class ArticlesListPage extends Component {
     _renderTitle() {
 
         return (
-            <h1>Articles List</h1>
+            <h1 className={ styles.title }>Articles List</h1>
         );
     }
 
     render() {
 
         return (
-            <div>
+            <div className={ styles.component }>
                 { this._renderTitle() }
                 { this._renderHeader() }
                 { this._renderLoadingOrContent() }

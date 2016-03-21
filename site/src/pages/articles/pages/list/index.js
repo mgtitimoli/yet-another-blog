@@ -23,6 +23,11 @@ function mapDispatchToProps(dispatch) {
         onEditArticle(article) {
 
             history.push("/articles/edit/" + article.id);
+        },
+
+        onViewArticle(article) {
+
+            history.push("/articles/view/" + article.id);
         }
     };
 }

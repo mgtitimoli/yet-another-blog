@@ -1,0 +1,28 @@
+.component {
+    margin-top: 20px;
+    list-style-type: none;
+}
+
+.actions {
+    float: right;
+    margin-bottom: 5px;
+}
+
+.actionLink {
+    color: rgb(102, 216, 189);
+    cursor: pointer;
+    font-size: .8em;
+}
+
+.actionLink:hover {
+    text-decoration: underline;
+}
+
+.actionSeparator {
+    color: rgb(255, 255, 255);
+    margin: 0 2px;
+}
+
+.article {
+    clear: right;
+}
