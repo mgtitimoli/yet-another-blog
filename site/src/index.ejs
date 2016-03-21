@@ -9,8 +9,8 @@
     </head>
     <body>
         <div id="app"></div>
-        <% bundles.forEach(function(bundleLocation) { %>
-            <script src="<%= bundleLocation %>"></script>
-        <% }); %>
+        <%_ bundles.forEach(bundleLocation => { _%>
+        <script src="<%= bundleLocation %>"></script>
+        <%_ }); _%>
     </body>
 </html>
