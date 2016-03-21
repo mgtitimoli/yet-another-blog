@@ -1,12 +1,13 @@
 .component {
-    margin: 0 auto;
-    max-width: 600px;
+    composes: component from "lib/page.css";
 }
 
 .title {
-    color: rgb(249, 38, 114);
-    margin: 10px 0 20px;
-    text-align: center;
+    composes: title from "lib/page.css";
+}
+
+.header {
+    margin-bottom: 20px;
 }
 
 .list {
