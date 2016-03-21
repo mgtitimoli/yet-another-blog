@@ -6,7 +6,7 @@ import React, {
 import executeAsyncInComponent from "lib/execute-async-in-component";
 
 import ArticleEditor from "pages/articles/controls/article-editor";
-// import styles from "./component.css";
+import styles from "./component.css";
 
 export default class ArticlesEditPage extends Component {
 
@@ -137,14 +137,14 @@ export default class ArticlesEditPage extends Component {
     _renderTitle() {
 
         return (
-            <h1>Edit Article</h1>
+            <h1 className={ styles.title }>Edit Article</h1>
         );
     }
 
     render() {
 
         return (
-            <div>
+            <div className={ styles.component }>
                 { this._renderTitle() }
                 { this._renderContentOrNotFound() }
             </div>
