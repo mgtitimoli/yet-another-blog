@@ -1,2 +1,10 @@
 .component {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.title {
+    color: rgb(249, 38, 114);
+    margin: 10px 0 20px;
+    text-align: center;
 }

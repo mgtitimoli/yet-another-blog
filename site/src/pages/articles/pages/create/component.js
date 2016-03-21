@@ -7,7 +7,7 @@ import executeAsyncInComponent from "lib/execute-async-in-component";
 import setComponentState from "lib/set-component-state";
 
 import ArticleEditor from "pages/articles/controls/article-editor";
-import cssClassNames from "./component.css";
+import styles from "./component.css";
 
 export default class ArticlesCreatePage extends Component {
 
@@ -111,14 +111,14 @@ export default class ArticlesCreatePage extends Component {
     _renderTitle() {
 
         return (
-            <h1>Create Article</h1>
+            <h1 className={ styles.title }>Create Article</h1>
         );
     }
 
     render() {
 
         return (
-            <div className={ cssClassNames.component }>
+            <div className={ styles.component }>
                 { this._renderTitle() }
                 { this._renderContent() }
             </div>
