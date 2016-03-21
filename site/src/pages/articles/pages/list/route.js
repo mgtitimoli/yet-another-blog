@@ -1,6 +1,12 @@
-import ArticlesListPageContainer from "./index";
-
 export default {
-    path     : "list",
-    component: ArticlesListPageContainer
+    path: "list",
+
+    getComponent(location, callback) {
+
+        require.ensure(
+            [],
+            require => callback(null, require("./index").default),
+            "articles-list"
+        );
+    }
 };

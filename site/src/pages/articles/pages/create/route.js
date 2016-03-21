@@ -1,6 +1,12 @@
-import ArticlesCreatePageContainer from "./index";
-
 export default {
-    path     : "create",
-    component: ArticlesCreatePageContainer
+    path: "create",
+
+    getComponent(location, callback) {
+
+        require.ensure(
+            [],
+            require => callback(null, require("./index").default),
+            "articles-create"
+        );
+    }
 };

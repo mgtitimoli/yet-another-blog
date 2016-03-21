@@ -1,6 +1,12 @@
-import ArticlesEditPageContainer from "./index";
-
 export default {
-    path     : "edit/:articleId",
-    component: ArticlesEditPageContainer
+    path: "edit/:articleId",
+
+    getComponent(location, callback) {
+
+        require.ensure(
+            [],
+            require => callback(null, require("./index").default),
+            "articles-edit"
+        );
+    }
 };

@@ -2,16 +2,22 @@ import redirectToChildRoute from "lib/redirect-to-child-route";
 
 import articlesRoute from "pages/articles/route";
 
-import Application from "./index";
-
 const THIS_PATH = "/";
 
 export default {
-    component  : Application,
     path       : THIS_PATH,
     childRoutes: [
         articlesRoute
     ],
+
+    getComponent(location, callback) {
+
+        require.ensure(
+            [],
+            require => callback(null, require("./index").default),
+            "application"
+        );
+    },
 
     onEnter({ location }, replaceLocation) {
 
