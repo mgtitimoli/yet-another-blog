@@ -26,3 +26,8 @@
 .article {
     clear: right;
 }
+
+.articleTitle {
+    /* we can do the following since the title occupies just one line */
+    white-space: nowrap;
+}
