@@ -118,7 +118,7 @@ export default class ArticlesListPage extends Component {
     _renderHeader() {
 
         return (
-            <div>
+            <div className={ styles.header }>
                 { this._renderHeaderButtons() }
             </div>
         );
