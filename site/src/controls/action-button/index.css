@@ -1,0 +1,32 @@
+.button {
+    box-sizing: border-box;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    font-size: .8em;
+    font-weight: bold;
+    min-width: 10em;
+    padding: 8px 12px;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+}
+
+.button:hover {
+    color: rgb(204, 204, 204);
+}
+
+.accept {
+    composes: button;
+    background-color: rgb(249, 38, 114);
+}
+
+.accept:hover {
+    background-color: rgb(216, 1, 78);
+}
+
+.cancel {
+    composes: button;
+    background-color: rgb(120, 45, 255);
+}
+
+.cancel:hover {
+    background-color: rgb(55, 0, 154);
+}
