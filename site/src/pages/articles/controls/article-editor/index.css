@@ -1,0 +1,34 @@
+.component {
+}
+
+.actions {
+    margin-bottom: 20px;
+}
+
+.actionButtonCancel {
+    margin-left: 10px;
+}
+
+.label {
+    color: rgb(230, 219, 95);
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.input {
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: .6em;
+    width: 100%;
+}
+
+.inputTitle {
+    composes: input;
+}
+
+.inputContent {
+    composes: input;
+    height: 30em;
+}

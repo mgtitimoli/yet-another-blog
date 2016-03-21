@@ -1,35 +1,26 @@
-import _ from "lodash";
+import classNames from "classnames";
 import React, {
     Component,
     PropTypes
 } from "react";
 
+import ActionButton from "controls/action-button";
 import InputField from "controls/input-field";
 import articlePropType from "pages/articles/lib/article-prop-type";
 
-// import cssClassNames from "./index.css";
-
-const formPropTypes = {
-    className: PropTypes.string,
-    style    : PropTypes.object
-};
-
-const ourPropTypes = {
-    article    : articlePropType,
-    disabled   : PropTypes.bool,
-    onCancelled: PropTypes.func.isRequired,
-    onConfirmed: PropTypes.func.isRequired
-};
+import styles from "./index.css";
 
 export default class ArticleEditor extends Component {
 
     static displayName = ArticleEditor.name;
 
-    static propTypes = Object.assign(
-        {},
-        formPropTypes,
-        ourPropTypes
-    );
+    static propTypes = {
+        article    : articlePropType,
+        className  : PropTypes.string,
+        disabled   : PropTypes.bool,
+        onCancelled: PropTypes.func.isRequired,
+        onConfirmed: PropTypes.func.isRequired
+    };
 
     static defaultProps = {
         disabled: false
@@ -83,70 +74,78 @@ export default class ArticleEditor extends Component {
         this.articleFields[name] = field;
     }
 
-    _renderActionsButton(label, handleClick) {
+    _renderActionsButtonCancel() {
 
         return (
-            <button
-                disabled={  this.props.disabled }
-                onClick={ handleClick }
-            >
-                { label }
-            </button>
+            <ActionButton
+                className={ styles.actionButtonCancel }
+                onClick={ this._handleCancel }
+                type={ ActionButton.TYPE_CANCEL }
+            >Cancel</ActionButton>
+        );
+    }
+
+    _renderActionsButtonConfirm() {
+
+        return (
+            <ActionButton
+                onClick={ this._handleConfirm }
+                type={ ActionButton.TYPE_ACCEPT }
+            >Save</ActionButton>
+        );
+    }
+
+    _renderLabeledInput(labelText, inputProps) {
+
+        return (
+            <label>
+                <div className={ styles.label }>{ labelText }</div>
+                <InputField { ... inputProps }/>
+            </label>
         );
     }
 
     _renderActions() {
 
         return (
-            <div>
-                { this._renderActionsButton("Save", this._handleConfirm) }
-                { this._renderActionsButton("Cancel", this._handleCancel) }
+            <div className={ styles.actions }>
+                { this._renderActionsButtonConfirm() }
+                { this._renderActionsButtonCancel() }
             </div>
         );
     }
 
     _renderArticleContent() {
 
-        return (
-            <label>
-                <div>Content</div>
-                <InputField
-                    disabled={ this.props.disabled }
-                    initialValue={ this.props.article.content }
-                    ref={ this._setArticleField.bind(this, "content") }
-                    type="textarea"
-                />
-            </label>
-        );
+        return this._renderLabeledInput("Content", {
+            className   : styles.inputContent,
+            disabled    : this.props.disabled,
+            initialValue: this.props.article.content,
+            ref         : this._setArticleField.bind(this, "content"),
+            type        : "textarea"
+        });
     }
 
     _renderArticleTitle() {
 
-        return (
-            <label>
-                <div>Title</div>
-                <InputField
-                    disabled={ this.props.disabled }
-                    initialValue={ this.props.article.title }
-                    ref={ this._setArticleField.bind(this, "title") }
-                />
-            </label>
-        );
+        return this._renderLabeledInput("Title", {
+            className   : styles.inputTitle,
+            disabled    : this.props.disabled,
+            initialValue: this.props.article.title,
+            ref         : this._setArticleField.bind(this, "title")
+        });
     }
 
     render() {
 
-        const propsWithoutOurs = _.omit(
-            this.props,
-            Object.keys(ourPropTypes)
-        );
-
-        const props = Object.assign(propsWithoutOurs, {
-            onSubmit: this._handleSave
-        });
-
         return (
-            <form { ...props }>
+            <form
+                className={ classNames(
+                    styles.component,
+                    this.props.className
+                ) }
+                onSubmit={ this._handleSave }
+            >
                 { this._renderArticleTitle() }
                 { this._renderArticleContent() }
                 { this._renderActions() }
